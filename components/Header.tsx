@@ -31,6 +31,14 @@ const Header = () => {
         setBmi(latestBMI)
         return latestBMI
     }
+
+    const handleScrollToBMI = () => {
+        const bmiSection = document.getElementById('bmiSection');
+        if (bmiSection) {
+            bmiSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
   return (
     <div>
         <div className='bg-[#2893DF] text-white flex justify-center text-center items-center w-full h-[32px] text-sm rounded-b-md  font-[Montserrat]'>
@@ -48,19 +56,27 @@ const Header = () => {
             </div>
 
             <div className='flex gap-8'>
+                <Link href={'/ai'}>
+                    <ul className='flex gap-4 font-thin'>
+                        <li className=' list-none text-[16px]'> Nutrition tips </li>
+                        <li className=' list-none text-[16px]'> Exercise </li>
+                    </ul>
+                </Link>
                 <ul className='flex gap-4 font-thin'>
-                    <li className=' list-none text-[16px]'> Nutrition tips </li>
-                    <li className=' list-none text-[16px]'> Exercise </li>
-                </ul>
-                <ul className='flex gap-4 font-thin'>
-                    <li className=' list-none text-[16px]'> AI recomendation </li>
-                    <li className=' list-none text-[16px]'> BMI </li>
+                    <Link href={'/ai'}>
+                        <li className=' list-none text-[16px]'> AI recomendation </li>
+                    </Link>
+                    <li className='list-none text-[16px]'>
+                        <button onClick={handleScrollToBMI} className='focus:outline-none'>
+                            BMI
+                        </button>
+                    </li>
                 </ul>
             </div>
             <div className='flex gap-4'>
                 <button className='text-white bg-[#2893DF] text-[16px] font-[Monoserrat] rounded-xl p-2 '> Bmi: {bmi} </button>
                 <Link href={'/signin'}>
-                    <button className='text-white bg-[#2893DF] text-[16px] font-[Monoserrat] rounded-xl p-2 '>Sign Up</button>
+                    <button className='text-white bg-[#2893DF] text-[16px] font-[Monoserrat] rounded-xl p-2 '>Sign In</button>
                 </Link>
                 <button onClick={fetchbmi()} className='text-white bg-[#2893DF] text-[16px] font-[Monoserrat] rounded-xl p-2 '> {name ?? <div>User</div>} </button>
             </div>

@@ -1,14 +1,13 @@
 "use client"
-import { getbmi } from '@/app/queries'
-import AiResponse from '@/components/AiResponse'
-import Header from '@/components/Header'
-import ProfileCard from '@/components/ProfileCard'
-import { useSession } from 'next-auth/react'
+import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
+import Details from './ui/Details'
+import Link from 'next/link'
+import { getbmi } from '@/app/queries'
+import { useSession } from 'next-auth/react'
 
-const page = () => {
-
-  const session = useSession()
+const ProfileCard = () => {
+    const session = useSession()
     const [name, setName] = useState('User')
     const [email, setEmail] = useState('')
     const [bmi, setBmi]  = useState(0)
@@ -44,18 +43,28 @@ const page = () => {
     }else{
         var HealthStatus = "Calculate Bmi"
     }
-
   return (
-    <div>
-        <div>
-            <Header/>
-        </div>
-        <div className='flex flex-row'>
-            <ProfileCard/>
-            <AiResponse HealthStatus={HealthStatus}/>
+    <div className='h-[85vh] w-[25%] bg-[#2893DF] shadow-lg items-center flex justify-center'>
+        <div className='h-[90%] w-[90%] bg-[white] shadow-lg rounded-lg flex flex-col items-center pt-10'>
+            <div>
+                <Image
+                    src={'/patient.svg'}
+                    width={180}
+                    height={180}
+                    alt='patient'
+                />
+            </div>
+            <div className='pt-8 w-[80%]'>
+                {bmi ?
+                <Details name={"Bmi Score"} value={bmi}/>
+                : <Link href={'/'}> <div className='w-full font-thin bg-[#2893DF] rounded-lg p-2 '> Calculate bmi</div> </Link>}
+                <Details name={"Name"} value={name}/>
+                <Details name={"Email"} value={email}/>
+                <Details name={"Status"} value={HealthStatus}/>
+            </div>
         </div>
     </div>
   )
 }
 
-export default page
+export default ProfileCard

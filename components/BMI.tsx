@@ -45,7 +45,7 @@ const BMI = () => {
   }, [bmi]);
 
   return (
-    <div className='w-full h-[680px] bg-[#CEE3F2] flex items-center justify-center'>
+    <div className='w-full h-[680px] bg-[#CEE3F2] flex items-center justify-center' id='bmiSection'>
       <div className='flex flex-col justify-center items-center text-center w-[1100px] h-[620px] shadow-md rounded-lg bg-white'>
         <p className='text-black font-[Montserrat] font-bold text-2xl p-4'>Calculate BMI</p>
         <div className='shadow-lg h-[484px] w-[580px] rounded-lg'>
@@ -87,7 +87,7 @@ const BMI = () => {
               </div>
               <div>
                 <p className=' py-[24px] pr-4'>Suggestions</p>
-                <Link href={'/Ai'}>
+                <Link href={'/ai'}>
                   <div className='mr-4 p-1 font-thin rounded-lg  mb-1 border-2 border-[#2893DF] hover:bg-[#2893DF] hover:text-white '>
                     AI Nutritionist
                   </div>
