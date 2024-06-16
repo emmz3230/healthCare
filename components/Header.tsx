@@ -1,8 +1,36 @@
+"use client"
+import { getbmi } from '@/app/queries'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Header = () => {
+    const session = useSession()
+    const [name, setName] = useState('User')
+    const [bmi, setBmi]  = useState(0)
+
+    useEffect(() => {
+        if (session) {
+            setName(session.data?.user.name)
+        }
+    }, [session]);
+
+
+    useEffect(() => {
+        fetchbmi();
+    }, []);
+    const fetchbmi = async()=>{
+        const bmiValue = await getbmi()
+        function getLatestBMI(data) {
+            data.sort((a, b) => new Date(b.date) - new Date(a.date));
+            const latestEntry = data.find(entry => entry.bmi !== null && entry.bmi !== undefined);
+            return latestEntry ? latestEntry.bmi : null;
+        }
+        const latestBMI = getLatestBMI(bmiValue)
+        setBmi(latestBMI)
+        return latestBMI
+    }
   return (
     <div>
         <div className='bg-[#2893DF] text-white flex justify-center text-center items-center w-full h-[32px] text-sm rounded-b-md  font-[Montserrat]'>
@@ -30,10 +58,11 @@ const Header = () => {
                 </ul>
             </div>
             <div className='flex gap-4'>
+                <button className='text-white bg-[#2893DF] text-[16px] font-[Monoserrat] rounded-xl p-2 '> Bmi: {bmi} </button>
                 <Link href={'/signin'}>
                     <button className='text-white bg-[#2893DF] text-[16px] font-[Monoserrat] rounded-xl p-2 '>Sign Up</button>
                 </Link>
-                <button className='text-white bg-[#2893DF] text-[16px] font-[Monoserrat] rounded-xl p-2 '>Get Started</button>
+                <button onClick={fetchbmi()} className='text-white bg-[#2893DF] text-[16px] font-[Monoserrat] rounded-xl p-2 '> {name ?? <div>User</div>} </button>
             </div>
         </nav>
     </div>
