@@ -22,7 +22,7 @@ const Page = () => {
 
   useEffect(() => {
     fetchBmi();
-  }, []);
+  });
 
   const fetchBmi = async () => {
     const bmiValue = await getbmi();

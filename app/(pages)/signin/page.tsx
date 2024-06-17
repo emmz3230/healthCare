@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 
-const page = () => {
+const Page = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const router = useRouter()
@@ -69,4 +69,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
