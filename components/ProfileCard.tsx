@@ -6,6 +6,11 @@ import Link from 'next/link'
 import { getbmi } from '@/app/queries'
 import { useSession } from 'next-auth/react'
 
+interface BmiData {
+    date: string;
+    bmi: number | null;
+}
+
 const ProfileCard = () => {
     const session = useSession()
     const [name, setName] = useState('User')
@@ -13,27 +18,29 @@ const ProfileCard = () => {
     const [bmi, setBmi]  = useState(0)
 
     useEffect(() => {
-        if (session) {
-            setName(session.data?.user.name)
-            setEmail(session.data?.user.email)
+        if (session && session.data) {
+          setName(session.data.user?.name || 'User');
+          setEmail(session.data.user?.email || '');
         }
-    }, [session]);
+      }, [session]);
 
 
     useEffect(() => {
         fetchbmi();
     }, []);
-    const fetchbmi = async()=>{
-        const bmiValue = await getbmi()
-        function getLatestBMI(data) {
-            data.sort((a, b) => new Date(b.date) - new Date(a.date));
-            const latestEntry = data.find(entry => entry.bmi !== null && entry.bmi !== undefined);
-            return latestEntry ? latestEntry.bmi : null;
-        }
-        const latestBMI = getLatestBMI(bmiValue)
-        setBmi(latestBMI)
-        return latestBMI
-    }
+    const fetchbmi = async (): Promise<number | null> => {
+        // @ts-ignore
+        const bmiValue: BmiData[] = await getbmi();
+        const getLatestBMI = (data: BmiData[]): number | null => {
+          data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          const latestEntry = data.find((entry) => entry.bmi !== null && entry.bmi !== undefined);
+          return latestEntry ? latestEntry.bmi : null;
+        };
+        const latestBMI = getLatestBMI(bmiValue);
+        setBmi(latestBMI || 0);
+        return latestBMI;
+    };
+    
     if(bmi){
         var HealthStatus = 
         bmi < 18.5 ? "Underweight" :

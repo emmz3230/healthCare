@@ -47,6 +47,7 @@ export const authOptions: NextAuthOptions = {
         try {
           const user = await prisma.user.create({
             data: {
+              // @ts-ignore
               email: credentials?.email,
               name: credentials?.name,
             },
