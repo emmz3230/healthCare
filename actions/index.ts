@@ -1,5 +1,6 @@
 "use server";
 import authOptions from "@/app/lib/auth";
+import db from "@/db";
 import prisma from "@/db";
 import { getServerSession } from "next-auth";
 
@@ -7,7 +8,7 @@ export const updateBmiValue = async (bmi: number, userId: number) => {
   console.log("start api req");
     if(userId){
         try {
-          await prisma.bMI.create({
+          await db.bMI.create({
             data: {
               bmi: bmi,
               date: new Date(),
