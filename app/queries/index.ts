@@ -1,7 +1,7 @@
 "use server"
+import prisma from "@/db"
 import { getServerSession } from "next-auth"
 import authOptions from "../lib/auth"
-import prisma from "@/db"
 
 export const getUserId = async()=>{
     const session = await getServerSession(authOptions)
