@@ -1,16 +1,26 @@
-import React from 'react'
-import { mealRecommendations } from '../data'
-import Overweight from './diet/Overweight'
-import Healthy from './diet/Healthy'
-import Underweight from './diet/Underweight'
-import Obese from './diet/Obese'
+import React from 'react';
+import Underweight from './diet/Underweight';
+import Healthy from './diet/Healthy';
+import Overweight from './diet/Overweight';
+import Obese from './diet/Obese';
 
-const Diet = ( status ) => {
-  return (
-    <div>
-      {status == "Underweight" ? <Underweight/> : status == "Healthy" ? <Healthy/> : status == " Overweight" ? <Overweight/> : status == "obese" ? <Obese/> : <Healthy/>}
-    </div>
-  )
-}
+const Diet = ({ HealthStatus, isLoading }) => {
+  if (isLoading) {
+    return <div className='h-full flex items-center justify-center text-center'>Loading...</div>;
+  }
 
-export default Diet
+  switch (HealthStatus) {
+    case 'Underweight':
+      return <Underweight />;
+    case 'Healthy':
+      return <Healthy />;
+    case 'Overweight':
+      return <Overweight />;
+    case 'Obese':
+      return <Obese />;
+    default:
+      return <Healthy />;
+  }
+};
+
+export default Diet;
