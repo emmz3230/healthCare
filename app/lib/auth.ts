@@ -1,4 +1,4 @@
-import { prisma } from "@/db";
+import prisma from "@/db";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions } from "next-auth";
 
