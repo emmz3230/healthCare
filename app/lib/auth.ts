@@ -64,6 +64,7 @@ export const authOptions = {
   ],
   secret: process.env.JWT_SECRET || "secret",
   callbacks: {
+    // @ts-ignore
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -72,6 +73,7 @@ export const authOptions = {
       }
       return token;
     },
+    // @ts-ignore
     async session({ session, token }) {
       if (token) {
         session.user.id = token.id as number;
