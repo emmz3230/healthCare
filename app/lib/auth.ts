@@ -28,6 +28,7 @@ export const authOptions = {
         email: { label: "Email", type: "text", placeholder: "enter your email", required: true },
         name: { label: "Name", type: "text", placeholder: "enter your name", required: true },
       },
+      //@ts-ignore
       async authorize(credentials) {
         const existingUser = await prisma.user.findFirst({
           where: {
@@ -46,6 +47,7 @@ export const authOptions = {
         try {
           const user = await prisma.user.create({
             data: {
+              // @ts-ignore
               email: credentials?.email,
               name: credentials?.name,
             },
