@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build",
-    "prisma:generate": "prisma generate",
+    "vercel-build": "prisma generate --schema=./db/prisma/schema.prisma && prisma migrate deploy --schema=./db/prisma/schema.prisma && next build",
+    "prisma:generate": "prisma generate --schema=./db/prisma/schema.prisma",
     "lint": "next lint"
   },
   "dependencies": {
