@@ -1,6 +1,8 @@
-import prisma from "@/db";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions } from "next-auth";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient()
 
 declare module "next-auth" {
   interface Session {
