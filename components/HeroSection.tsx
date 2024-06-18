@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import React from 'react'
 
 const HeroSection = () => {
@@ -21,9 +22,11 @@ const HeroSection = () => {
                 </h1>
             </div>
             <div className='m-4'>
-                <button className='p-2 bg-[#2893DF] text-white font-[Montserrat] text-[16px] rounded-2xl px-4'>
-                    Explore Now
-                </button>
+                <Link href={'/'}>
+                    <button className='p-2 bg-[#2893DF] text-white font-[Montserrat] text-[16px] rounded-2xl px-4'>
+                        Explore Now
+                    </button>
+                </Link>
             </div>
             </div>
         </div>
